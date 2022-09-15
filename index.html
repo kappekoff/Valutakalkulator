@@ -14,17 +14,20 @@
     <script>
         async function SEKtilNOK() {
             var svenskeKroner = document.getElementById("SEK").value
+
             var kursUSDtilSEK = await hentKurs("USDtilSEK")
             var kursUSDtilNOK = await hentKurs("USDtilNOK")
+
             var amerikanskeDollar = svenskeKroner / kursUSDtilSEK
             var norskeKroner = amerikanskeDollar * kursUSDtilNOK
+            
             document.getElementById("NOK").innerHTML = norskeKroner
         }
 
         async function hentKurs(valuta){
             var forespørsel = await fetch("https://openexchangerates.org/api/latest.json?app_id=062ea16b4bed4ee9946a29df8ec67aaa")
             var svar = await forespørsel.json()
-            console.log(svar.rates)
+
             if (valuta == "USDtilSEK") {
                 var kurs = svar.rates.SEK
             }
