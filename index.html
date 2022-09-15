@@ -1,30 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
+
+
+
+    <input type="number" id="NOK">
+    <button id="NOKtilUSD" onclick="NOKtilUSD()">NOK til SEK</button>
+    <span id="SEK"></span>
+
+    <script>
+        async function NOKtilUSD() {
+            var norske_kroner = document.getElementById("NOK").value
+            var kurs1 = await hentKurs1()
+            var amerikanske_dollar = norske_kroner / kurs1
+
+            var kurs2 = await hentKurs2()
+            var svenske_kroner = amerikanske_dollar * kurs2
+            document.getElementById("SEK").innerHTML = svenske_kroner
+        }
+
+        async function hentKurs1() {
+            var forespørsel = await fetch("https://openexchangerates.org/api/latest.json?app_id=062ea16b4bed4ee9946a29df8ec67aaa")
+            var svar = await forespørsel.json()
+            var nok = svar.rates.NOK
+            return nok
+        }
+
+        async function hentKurs2() {
+            var forespørsel = await fetch("https://openexchangerates.org/api/latest.json?app_id=062ea16b4bed4ee9946a29df8ec67aaa")
+            var svar = await forespørsel.json()
+            var sek = svar.rates.SEK
+            return sek
+        }
+    </script>
+
+    <h1>101 undefined
+    </h1>
+    <!--
+    <br>
+
     <input type="number" id="USD">
     <button id="NOKtilUSD" onclick="NOKtilUSD()">USD til NOK</button>
-    <span id ="NOK"></span>
+    <span id="NOK"></span>
 
     <script>
         async function NOKtilUSD() {
             var amerikanske_dollar = document.getElementById("USD").value
             var kurs = await hentKurs()
-            var norske_kroner = amerikanske_dollar / kurs
+            var norske_kroner = amerikanske_dollar * kurs
             document.getElementById("NOK").innerHTML = norske_kroner
         }
 
-        async function hentKurs(){
+        async function hentKurs() {
             var forespørsel = await fetch("https://openexchangerates.org/api/latest.json?app_id=062ea16b4bed4ee9946a29df8ec67aaa")
             var svar = await forespørsel.json()
             var nok = svar.rates.NOK
             return nok
-        }  
+        }
     </script>
+-->
 </body>
+
 </html>
