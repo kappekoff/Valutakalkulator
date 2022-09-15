@@ -15,7 +15,7 @@
         async function NOKtilUSD() {
             var amerikanske_dollar = document.getElementById("USD").value
             var kurs = await hentKurs()
-            var norske_kroner = amerikanske_dollar * kurs
+            var norske_kroner = amerikanske_dollar / kurs
             document.getElementById("NOK").innerHTML = norske_kroner
         }
 
