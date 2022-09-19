@@ -12,6 +12,13 @@
     <span id ="NOK"></span>
 
     <script>
+
+        async function NOKtilUSD() {
+            var amerikanske_dollar = document.getElementById("USD").value
+            var kurs = await hentKurs()
+            var norske_kroner = amerikanske_dollar / kurs
+            document.getElementById("NOK").innerHTML = norske_kroner
+
         async function SEKtilNOK() {
             var svenskeKroner = document.getElementById("SEK").value
             var svenskKurs = await hentSEK();
@@ -20,6 +27,7 @@
             var norskeKroner = amerikanskeDollar * norskKurs;
             document.getElementById("NOK").innerHTML = norskeKroner
             
+
         }
 
         async function hentSEK(){
