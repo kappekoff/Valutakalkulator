@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="number" id="SEK">
+    <button id="SEKtilNOK" onclick="SEKtilNOK()">Sek til nok</button>
+    <span id ="NOK"></span>
+
+    <script>
+        async function SEKtilNOK() {
+            var svenskeKroner = document.getElementById("SEK").value
+            var svenskKurs = await hentSEK();
+            var amerikanskeDollar = svenskeKroner/svenskKurs;
+            var norskKurs = await hentNOK();
+            var norskeKroner = amerikanskeDollar * norskKurs;
+            document.getElementById("NOK").innerHTML = norskeKroner
+            
+        }
+
+        async function hentSEK(){
+            var forespørsel = await fetch("https://openexchangerates.org/api/latest.json?app_id=062ea16b4bed4ee9946a29df8ec67aaa")
+            var svar = await forespørsel.json()
+            var valuta_kurs = svar.rates.SEK
+            return valuta_kurs
+        }  
+        async function hentNOK(){
+            var forespørsel = await fetch("https://openexchangerates.org/api/latest.json?app_id=062ea16b4bed4ee9946a29df8ec67aaa")
+            var svar = await forespørsel.json()
+            var valuta_kurs = svar.rates.NOK
+            return valuta_kurs
+        }  
+    </script>
+</body>
+</html>
+    
