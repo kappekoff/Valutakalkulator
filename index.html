@@ -7,23 +7,40 @@
     <title>Document</title>
 </head>
 <body>
-    <input type="number" id="USD">
-    <button id="NOKtilUSD" onclick="NOKtilUSD()">USD til NOK</button>
+    <input type="number" id="SEK">
+    <button id="SEKtilNOK" onclick="SEKtilNOK()">Sek til nok</button>
     <span id ="NOK"></span>
 
     <script>
+
         async function NOKtilUSD() {
             var amerikanske_dollar = document.getElementById("USD").value
             var kurs = await hentKurs()
             var norske_kroner = amerikanske_dollar / kurs
             document.getElementById("NOK").innerHTML = norske_kroner
+
+        async function SEKtilNOK() {
+            var svenskeKroner = document.getElementById("SEK").value
+            var svenskKurs = await hentSEK();
+            var amerikanskeDollar = svenskeKroner/svenskKurs;
+            var norskKurs = await hentNOK();
+            var norskeKroner = amerikanskeDollar * norskKurs;
+            document.getElementById("NOK").innerHTML = norskeKroner
+            
+
         }
 
-        async function hentKurs(){
+        async function hentSEK(){
             var forespørsel = await fetch("https://openexchangerates.org/api/latest.json?app_id=062ea16b4bed4ee9946a29df8ec67aaa")
             var svar = await forespørsel.json()
-            var nok = svar.rates.NOK
-            return nok
+            var valuta_kurs = svar.rates.SEK
+            return valuta_kurs
+        }  
+        async function hentNOK(){
+            var forespørsel = await fetch("https://openexchangerates.org/api/latest.json?app_id=062ea16b4bed4ee9946a29df8ec67aaa")
+            var svar = await forespørsel.json()
+            var valuta_kurs = svar.rates.NOK
+            return valuta_kurs
         }  
     </script>
 </body>
